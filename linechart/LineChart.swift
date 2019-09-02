@@ -237,7 +237,7 @@ open class LineChart: UIView {
         if (self.dataStore.isEmpty) {
             return
         }
-        let point: AnyObject! = touches.anyObject() as AnyObject!
+        let point: AnyObject! = touches.anyObject() as AnyObject?
         let xValue = point.location(in: self).x
         let inverted = self.x.invert(xValue - x.axis.inset)
         let rounded = Int(round(Double(inverted)))
@@ -252,7 +252,7 @@ open class LineChart: UIView {
      * Listen on touch end event.
      */
     override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        handleTouchEvents(touches as NSSet!, event: event!)
+        handleTouchEvents(touches as NSSet?, event: event!)
     }
     
     
@@ -261,7 +261,7 @@ open class LineChart: UIView {
      * Listen on touch move event
      */
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        handleTouchEvents(touches as NSSet!, event: event!)
+        handleTouchEvents(touches as NSSet?, event: event!)
     }
     
     
@@ -511,7 +511,7 @@ open class LineChart: UIView {
         for (index, _) in xAxisData.enumerated() {
             let xValue = self.x.scale(CGFloat(index)) + x.axis.inset - (width / 2)
             let label = UILabel(frame: CGRect(x: xValue, y: y, width: width, height: x.axis.inset))
-            label.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption2)
+            label.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption2)
             label.textAlignment = .center
             if (x.labels.values.count != 0) {
                 text = x.labels.values[index]
@@ -534,7 +534,7 @@ open class LineChart: UIView {
         for i in stride(from: start, through: stop, by: step){
             yValue = self.bounds.height - self.y.scale(i) - (y.axis.inset * 1.5)
             let label = UILabel(frame: CGRect(x: 0, y: yValue, width: y.axis.inset, height: y.axis.inset))
-            label.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption2)
+            label.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption2)
             label.textAlignment = .center
             label.text = String(Int(round(i)))
             self.addSubview(label)
