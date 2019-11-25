@@ -295,7 +295,7 @@ open class LineChart: UIView {
      */
     fileprivate func drawDataDots(_ lineIndex: Int) {
         var dotLayers: [DotCALayer] = []
-        var data = self.dataStore[lineIndex]
+        let data = self.dataStore[lineIndex]
         
         for index in 0..<data.count {
             let xValue = self.x.scale(CGFloat(index)) + x.axis.inset - dots.outerRadius/2
@@ -385,7 +385,7 @@ open class LineChart: UIView {
      */
     fileprivate func drawLine(_ lineIndex: Int) {
         
-        var data = self.dataStore[lineIndex]
+        let data = self.dataStore[lineIndex]
         let path = UIBezierPath()
         
         var xValue = self.x.scale(0) + x.axis.inset
@@ -425,7 +425,7 @@ open class LineChart: UIView {
      */
     fileprivate func drawAreaBeneathLineChart(_ lineIndex: Int) {
         
-        var data = self.dataStore[lineIndex]
+        let data = self.dataStore[lineIndex]
         let path = UIBezierPath()
         
         colors[lineIndex].withAlphaComponent(0.2).setFill()
@@ -533,7 +533,7 @@ open class LineChart: UIView {
         let (start, stop, step) = self.y.ticks
         for i in stride(from: start, through: stop, by: step){
             yValue = self.bounds.height - self.y.scale(i) - (y.axis.inset * 1.5)
-            let label = UILabel(frame: CGRect(x: 0, y: yValue, width: y.axis.inset, height: y.axis.inset))
+            let label = UILabel(frame: CGRect(x: 0-15, y: yValue, width: y.axis.inset + 15, height: y.axis.inset))
             label.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption2)
             label.textAlignment = .center
             label.text = String(Int(round(i)))
@@ -641,7 +641,7 @@ open class LinearScale {
     }
     
     fileprivate func scale_linearTickRange(_ domain: [CGFloat], m: Int) -> (CGFloat, CGFloat, CGFloat) {
-        var extent = scaleExtent(domain)
+        let extent = scaleExtent(domain)
         let span = extent[1] - extent[0]
         var step = CGFloat(pow(10, floor(log(Double(span) / Double(m)) / M_LN10)))
         let err = CGFloat(m) / span * step
